@@ -91,3 +91,11 @@ def run_inference():
         # Stop the pipeline
         pipeline.stop()
         cv2.destroyAllWindows()
+
+# 회전 행렬을 적용하는 함수
+def apply_rotation_matrix(X, Y, Z):
+    R_total = np.array([
+        [-np.cos(np.radians(135)) * np.cos(np.radians(45)), np.sin(np.radians(135)), -np.cos(np.radians(135)) * np.sin(np.radians(45))],
+        [np.sin(np.radians(135)) * np.cos(np.radians(45)), np.cos(np.radians(135)), np.sin(np.radians(135)) * np.sin(np.radians(45))],
+        [-np.sin(np.radians(45)), 0, np.cos(np.radians(45))]
+    ])
