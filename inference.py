@@ -13,11 +13,9 @@ def run_inference():
     model = YOLO(weight_path)
 
     # Camera intrinsics (replace with actual calibration data)
-    fx, fy = 2227.93, 2211.78  # Focal length
-    cx, cy = 1261.84, 2100.96  # Principal point
-    camera_matrix = np.array([[fx, 0, cx],
-                              [0, fy, cy],
-                              [0, 0, 1]])
+    fx, fy = 2227.93, 2211.78  # Focal length (pixel units)
+    cx, cy = 1261.84, 2100.96  # Principal point (pixel units)
+
     # Configure depth and color streams from the depth camera
     pipeline = rs.pipeline()
     config = rs.config()
@@ -62,10 +60,15 @@ def run_inference():
                 y_center = int((y1 + y2) / 2)
                 
                 # Get depth (z-coordinate) at the center of the detected object
-                z_center = depth_frame.get_distance(x_center, y_center)
+                z_center = depth_frame.get_distance(x_center, y_center)  # Depth in meters
 
-                # Print the (x, y, z) coordinates of the center of the bounding box
-                print(f'Center coordinates: (x: {x_center}, y: {y_center}, z: {z_center:.2f} meters)')
+                # Convert (x, y, z) to world coordinates (in cm)
+                X = ( ((x_center - cx) * z_center * 100) / fx ) # X in cm
+                Y = ( ((y_center - cy) * z_center * 100) / fy ) # Y in cm
+                Z = z_center * 100  # Z in cm (convert from meters to cm)
+
+                # Print the (X, Y, Z) coordinates of the center of the bounding box
+                print(f'World coordinates: (X: {X:.2f} cm, Y: {Y:.2f} cm, Z: {Z:.2f} cm)')
 
                 # Draw bounding box and label
                 cv2.rectangle(color_image, (int(x1), int(y1)), (int(x2), int(y2)), (255, 0, 0), 2)
@@ -75,8 +78,8 @@ def run_inference():
                 label_position = (int(x1), int(y1) - 10)  # Positioned above the bounding box
                 cv2.putText(color_image, label, label_position, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-                # Draw coordinates (x, y, z) below the bounding box
-                coord_label = f'x: {x_center}, y: {y_center}, z: {z_center:.2f}m'
+                # Draw world coordinates (X, Y, Z) below the bounding box
+                coord_label = f'X: {X:.2f} cm, Y: {Y:.2f} cm, Z: {Z:.2f} cm'
                 coord_label_position = (int(x1), int(y2) + 20)  # Positioned below the bounding box
                 cv2.putText(color_image, coord_label, coord_label_position, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
@@ -91,3 +94,8 @@ def run_inference():
         # Stop the pipeline
         pipeline.stop()
         cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    run_inference()
+    
