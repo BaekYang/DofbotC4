@@ -13,8 +13,8 @@ def run_inference():
     model = YOLO(weight_path)
 
     # Camera intrinsics (replace with actual calibration data)
-    fx, fy = 2227.93, 2211.78  # Focal length
-    cx, cy = 1261.84, 2100.96  # Principal point
+    fx, fy = 595.29, 597.94  # Focal length (pixel units) 소수점 셋째자리 반올림
+    cx, cy = 320, 240  # Principal point (pixel units)
     camera_matrix = np.array([[fx, 0, cx],
                               [0, fy, cy],
                               [0, 0, 1]])
