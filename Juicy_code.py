@@ -17,7 +17,7 @@ def pour_water():
 
 # Object detection function (detect objects using YOLOv8)
 def detect_object(frame):
-    resized_frame = cv2.resize(frame, (640, 640))  # Resize to YOLOv8's default size (640x640)
+    resized_frame = cv2.resize(frame, (640, 480))  # Resize to YOLOv8's default size (640x640)
     results = model(resized_frame)  # Process the frame using the YOLO model
     # Extract object class and bounding boxes from the results
     labels, boxes = results[0].boxes.cls.cpu().numpy(), results[0].boxes.xyxy.cpu().numpy()
