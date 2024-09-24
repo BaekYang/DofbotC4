@@ -20,11 +20,9 @@ def main():
     #time.sleep(1)
     #Arm.Arm_serial_servo_write(6,0, 1000)
     #time.sleep(1)
-    Arm.Arm_serial_servo_write(6,180, 1000)
+    Arm.Arm_serial_servo_write(6, 180, 1000)
     time.sleep(2)
     
-
-
 try:
     main()
 except KeyboardInterrupt:

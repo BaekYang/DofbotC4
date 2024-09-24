@@ -12,7 +12,7 @@ time.sleep(0.1)
 
 def main():
     # 서보를 중앙 위치로 초기화
-    Arm.Arm_serial_servo_write6(90, 90, 90, 90, 90,160, 1500)
+    Arm.Arm_serial_servo_write6(0, 90, 90, 90, 90,160, 1500)
     time.sleep(1)
 
 

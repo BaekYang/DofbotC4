@@ -11,11 +11,16 @@ Arm = Arm_Device()
 time.sleep(0.1)
 
 def main():
-    # 서보를 중앙 위치로 초기화
-    Arm.Arm_serial_servo_write6(90, 90, 90, 90, 90,160, 1500)
+
+    Arm.Arm_serial_servo_write(2, 10, 1500) ###
     time.sleep(1)
-
-
+    Arm.Arm_serial_servo_write(6, 180, 1500)
+    time.sleep(1)
+    Arm.Arm_serial_servo_write(6, 100, 1500)
+    time.sleep(1)
+    Arm.Arm_serial_servo_write(3, 33, 500)
+    time.sleep(1)
+    
 try:
     main()
 except KeyboardInterrupt:

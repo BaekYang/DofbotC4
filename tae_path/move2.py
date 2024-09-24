@@ -11,11 +11,24 @@ Arm = Arm_Device()
 time.sleep(0.1)
 
 def main():
-    Arm.Arm_serial_servo_write(1, 25, 500)
+    Arm.Arm_serial_servo_write6(27, 20, 18, 158, 90, 180, 1500)
+    time.sleep(3)
+    Arm.Arm_serial_servo_write(5, 270, 1500)
     time.sleep(1)
-    
-    
-    
+    #Arm.Arm_serial_servo_write(4, 158, 500)
+    #time.sleep(1)
+    #Arm.Arm_serial_servo_write(2, 20, 1000)
+    #time.sleep(3)
+    #Arm.Arm_serial_servo_write(5, 270, 500)
+    #time.sleep(3)
+    #Arm.Arm_serial_servo_write(2, 10, 1500) ###
+    #time.sleep(1)
+    #Arm.Arm_serial_servo_write(6, 180, 1500)
+    #time.sleep(1)
+    #Arm.Arm_serial_servo_write(6, 100, 1500)
+    #time.sleep(1)
+    #Arm.Arm_serial_servo_write(3, 33, 500)
+    #time.sleep(1)
 try:
     main()
 except KeyboardInterrupt:
