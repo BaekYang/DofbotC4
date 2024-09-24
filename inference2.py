@@ -43,8 +43,8 @@ def run_inference():
     model = YOLO(weight_path)
 
     # Camera intrinsics (replace with actual calibration data)
-    fx, fy = 2227.93, 2211.78  # Focal length (pixel units)
-    cx, cy = 1261.84, 2100.96  # Principal point (pixel units)
+    fx, fy = 595.285932, 597.935197  # Focal length (pixel units)
+    cx, cy = 320, 240  # Principal point (pixel units)
 
     # Configure depth and color streams from the depth camera
     pipeline = rs.pipeline()
